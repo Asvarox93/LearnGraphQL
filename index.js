@@ -14,6 +14,8 @@ const typeDefs = gql`
     pi: Float
     isTodayFriday: Boolean
     randomCoinTossesUntilTrue: [Boolean]
+    e: Float
+    eulersSeries: [Float]
   }
 `;
 
@@ -40,6 +42,15 @@ const rootValue = () => {
 
     return result;
   };
+  const getEulersSeries = () => {
+    const result = [];
+
+    for (let i = 1; i <= 1000; i++) {
+      result.push(Math.pow(1 + 1 / i, i));
+    }
+
+    return result;
+  };
 
   const data = {
     greeting: "Hello World!",
@@ -53,6 +64,8 @@ const rootValue = () => {
     pi: Math.PI,
     isTodayFriday: today.getDay() === 5,
     randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue(),
+    e: Math.E,
+    eulersSeries: getEulersSeries(),
   };
 
   return data;
