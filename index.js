@@ -11,6 +11,9 @@ const typeDefs = gql`
     randomDiceThrow: Int
     fewRandomDiceThrows: [Int]
     counter: Int
+    pi: Float
+    isTodayFriday: Boolean
+    randomCoinTossesUntilTrue: [Boolean]
   }
 `;
 
@@ -27,6 +30,16 @@ const rootValue = () => {
     }
     return throwArray;
   };
+  const today = new Date();
+  const randomCoinToss = () => Math.random() > 0.5;
+  const getRandomCoinTossesUntilTrue = () => {
+    const result = [];
+    do {
+      result.push(randomCoinToss());
+    } while (!result[result.length - 1]);
+
+    return result;
+  };
 
   const data = {
     greeting: "Hello World!",
@@ -37,6 +50,9 @@ const rootValue = () => {
     randomDiceThrow: getRandomDiceThrow(6),
     fewRandomDiceThrows: getFewRandomDiceThrows(6),
     counter: rootValue.calledTimes,
+    pi: Math.PI,
+    isTodayFriday: today.getDay() === 5,
+    randomCoinTossesUntilTrue: getRandomCoinTossesUntilTrue(),
   };
 
   return data;
